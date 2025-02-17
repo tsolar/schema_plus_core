@@ -21,7 +21,7 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = ">= 2.5.0"
 
-  gem.add_dependency "activerecord", ">= 5.2", "< 7.1"
+  gem.add_dependency "activerecord", ">= 5.2"
   gem.add_dependency "schema_monkey", "~> 3.0.2"
 
   gem.add_development_dependency "bundler"
