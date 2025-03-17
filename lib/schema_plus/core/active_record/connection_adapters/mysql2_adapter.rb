@@ -50,9 +50,9 @@ module SchemaPlus
             }.sources
           end
 
-          def select_rows(sql, name=nil, binds=[])
-            SchemaMonkey::Middleware::Query::Exec.start(connection: self, sql: sql, query_name: name, binds: binds) { |env|
-              env.result = super env.sql, env.query_name, env.binds
+          def select_rows(sql, name=nil, binds=[], **options)
+            SchemaMonkey::Middleware::Query::Exec.start(connection: self, sql: sql, query_name: name, binds: binds, options: options.dup) { |env|
+              env.result = super env.sql, env.query_name, env.binds, **env.options
             }.result
           end
 
@@ -64,9 +64,9 @@ module SchemaPlus
 
           alias exec_without_stmt exec_query
 
-          def exec_insert(sql, name, binds, pk = nil, sequence_name = nil)
-            SchemaMonkey::Middleware::Query::Exec.start(connection: self, sql: sql, query_name: name, binds: binds) { |env|
-              env.result = super env.sql, env.query_name, env.binds, pk, sequence_name
+          def exec_insert(sql, name, binds, pk = nil, sequence_name = nil, **options)
+            SchemaMonkey::Middleware::Query::Exec.start(connection: self, sql: sql, query_name: name, binds: binds, options: options.dup) { |env|
+              env.result = super env.sql, env.query_name, env.binds, pk, sequence_name, **env.options
             }.result
           end
 
